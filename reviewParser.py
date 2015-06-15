@@ -130,8 +130,38 @@ def getAvgFeatureVectors(reviews, model, numberFeatures):
     
     #Loop through the reviews
     for review in reviews:
-        
+        #print status message every 100th review
+        if ( (counter + 1) % 1000 == 0 ):
+            print 'making average feature vector for review %d of review %d' % (counter, len(reviews))
+            
+        #Make average feature vector for a given review
+        reviewFeatureVectors[countr] = makeFeatureVector(review, model, numberFeatures)
+        counter = counter + 1
     
+    #return all the averaged feature vectors
+    return reviewFeatureVectors
+
+
+def createBagOfCentroids(wordList, wordCentroidMap):
+    """
+    Function will give us numpy array for each review
+    Each one will have number of features equal to number of clusters
+    """
+    #
+    #Number of centroids is equal to the highest cluster index in the word/centroid map
+    numCentroids = max(wordCentroidMap.values()) + 1
+    
+    #Preallocate bag of centroid vectors (for speed)
+    bagOfCentroids = np.zeros(numberCentroids, dtype='float32')
+    
+    #Loop over words in review. If word in vocab then find which cluster it belongs to
+    #and increment clustercount by 1
+    for word in wordList:
+        if word in wordCentroidMap:
+            index = wordCentroidMap[word]
+            bagOfCentroids[index] +=1
+    
+    return bagOfCentroids
     
     
     
