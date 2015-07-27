@@ -135,7 +135,7 @@ def getAvgFeatureVectors(reviews, model, numberFeatures):
             print 'making average feature vector for review %d of review %d' % (counter, len(reviews))
             
         #Make average feature vector for a given review
-        reviewFeatureVectors[countr] = makeFeatureVector(review, model, numberFeatures)
+        reviewFeatureVectors[counter] = makeFeatureVector(review, model, numberFeatures)
         counter = counter + 1
     
     #return all the averaged feature vectors
